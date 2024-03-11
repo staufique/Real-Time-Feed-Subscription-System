@@ -45,7 +45,10 @@ class UserLoginView(APIView):
         if serializer.is_valid(raise_exception=True):
             email = serializer.data.get('email')
             password = serializer.data.get('password')
-            user = authenticate(email=email,password=password)
+            print(email,password)
+            user = User.objects.filter(email=email,password=password).first()
+            # user = authenticate(email=email,password=password)
+            print(user)
             if user is not None :
                 msg=''
                 check = User.objects.filter(email=email).first()

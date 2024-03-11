@@ -1,11 +1,11 @@
 from django.contrib import admin
-# from .models import DistributedData
-# # Register your models here.
-# @admin.register(DistributedData)
-# class DistributedAdmin(admin.ModelAdmin):
-#     list_display=['channel_group']
-
+from django.contrib.auth.admin import UserAdmin
 from .models import User
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ['username','email','channel_subscription']
+
+class CustomUserAdmin(UserAdmin):
+    list_display = ('id', 'username', 'email', 'channel_subscription')
+    search_fields = ('username', 'email')
+    list_filter = ('channel_subscription',)
+    ordering = ('id',)
+    filter_horizontal = ()
+admin.site.register(User, CustomUserAdmin)
